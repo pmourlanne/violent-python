@@ -9,7 +9,7 @@ UA_file = "user_agent_strings"
 
 class AnonBrowser(mechanize.Browser):
     def __init__(self, proxies=[], user_agents=[]):
-        super(mechanize.Browser, self).__init__()
+        mechanize.Browser.__init__(self)
         self.set_handle_robots(False)  # To ignore robots.txt
 
         self.proxies = proxies + AnonBrowser.get_proxies()
@@ -26,7 +26,7 @@ class AnonBrowser(mechanize.Browser):
         self.addheaders = [('User-agent', (self.user_agents[random.randint(1, len(self.user_agents))]))]
 
     def change_proxy(self):
-        self.set_proxies({'http': self.proxies(random.randint(1, len(self.proxies)))})
+        self.set_proxies({'http': self.proxies[random.randint(1, len(self.proxies))]})
 
     def anonymize(self, sleep=False):
         self.clear_cookies()
