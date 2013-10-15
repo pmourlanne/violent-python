@@ -23,10 +23,12 @@ class AnonBrowser(mechanize.Browser):
         self.set_cookiejar(self.cookie_jar)
 
     def change_user_agent(self):
-        self.addheaders = [('User-agent', (self.user_agents[random.randint(1, len(self.user_agents))]))]
+        index = random.randrange(len(self.user_agents))
+        self.addheaders = [('User-agent', (self.user_agents[index]))]
 
     def change_proxy(self):
-        self.set_proxies({'http': self.proxies[random.randint(1, len(self.proxies))]})
+        index = random.randrange(len(self.proxies))
+        self.set_proxies({'http': self.proxies[index]})
 
     def anonymize(self, sleep=False):
         self.clear_cookies()
